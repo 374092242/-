@@ -1,0 +1,39 @@
+一.rpm包
+1.Windows -- exe 可以选择安装盘符
+  Linux -- 源码编译安装,rpm
+  
+2.RPM Package Manager, RPM包管理器
+  --rpm -q 查看是否已经安装某个包
+  限制 : 参数必须完全匹配
+  --rpm -qa 显示所有安装的包
+  配合 | grep 
+  --rpm -ivh
+  -i 安装rpm包
+  -v 显示安装过程
+  -h 显示哈希标记
+  --rpm -e 卸载软件包
+  
+3.Yellow Dog Update Manager -- 用来自动解决依赖关系
+   1）修改配置文件
+   /etc/yum.repos.d/xxx.repo
+   [rhel7]
+   name=redhat7.4
+   baseurl=ftp://192.168.4.1/rhel7.4
+   enabled=1
+   gpgcheck=0
+   2）验证配置是否正确
+   --yum repolist
+   清除缓存
+   --yum clean all
+   3）列举软件仓库中的文件
+   --yum list [软件名]...  
+   和rpm管理器一样，必须全匹配时才能列出包文件，否则报错
+   --yum list | grep 关键字
+   4）安装软件
+   --yum [-y] install 软件名...
+   5）卸载软件
+   --yum [-y] remove 软件名...
+
+4.可以使用scp命令在虚拟机和物理机之间传输文件
+   --scp /root/mytxt.txt 192.168.4.128:/root/
+   

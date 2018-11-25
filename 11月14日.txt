@@ -1,0 +1,50 @@
+1.touch命令
+  可以创建一个文件
+2.vim命令
+  打开并编辑一个文件
+  i : 进入编写模式
+  Shift+ " : " : 进入末行模式   wq : 保存并退出  q : 退出
+3.cat命令
+  查看选定文件的内容,类似命令如 less,more
+  -n 显示行号
+  -b 显示行号但不包括空白行
+4.head命令
+  格式 : head -(行数) 参数
+  从最顶端显示到指定行数的内容(默认为10行)
+5.tail命令
+  形式与head命令相同,区别于tail命令是从文件的最低端开始
+6.管道
+  将上一个命令的结果作为下一个命令的对象
+ 7.sed命令
+   格式 sed -n '开始行,结束行p' 参数
+           sed -n '指定行p' 参数
+           sed -n '指定行p;开始行,结束行p' 参数
+8.cd命令
+  切换目录
+9.pwd命令
+  显示当前目录
+10.mkdir命令
+  创建目录
+11.ls命令
+  查看该目录的内容
+12.mount命令
+  挂载
+  格式 : mount 设备路径 挂载点   如  mount /dev/cdrom zrb/
+13.虚拟机ftp服务的基础搭建
+   ( 1 ) 连接主机网络 : 在虚拟网络接口出连接主机网络,为虚拟机添加IP地址
+   ( 2 ) 在CDROM中加载光盘 用mount命令将光盘挂载到自定义目录
+   ( 3 ) 用rpm -qa | grep vsftpd 查看是否安装 vsftpd 如果没有则在挂载目录里的Packages文件夹中用 rpm -ivh vsftpd-3.0.2-22.el7.x86_64.rpm 来安装
+   ( 4 ) 安装完毕后在/etc目录中会生成vsftpd目录,该目录中有三大配置文件,编辑vsftpd.conf来使得用户可以匿名登录
+   ( 5 ) 用systemctl start vsftpd 启动vsftpd服务
+   ( 6 ) 关闭防火墙 iptsbles -F
+14.挂载U盘
+   1，以root用户登陆
+      先加载USB模块 modprobe usb-storage
+      用fdisk -l 看看U盘的设备
+      假如U盘是sda1
+   2，确定在 目录 /mnt 下建立了 文件夹 /usb,如果未建立可键入一下命令：     mkdir /mnt/usb_disk,成功后进行下一步。    
+   3，载入 u 盘，需键入以下命令：mount  /dev/sda   /mnt/usb_disk     
+      成功后，即可使用 u 盘了, 文件就在目录 /mnt/usb 下。
+   4，卸载u盘：在使用完u盘后，在拔出前需要先键入卸载U盘命令    
+      命令如下：umount /mnt/usb 
+

@@ -1,0 +1,65 @@
+11月18日
+
+上午
+
+系统开机启动顺序：
+
+    1.硬件自检
+      硬件是物质基础
+      · 主板、电源
+      
+      · CPU：中央处理器
+      # lscpu
+      · 内存：RAM  断电丢数据
+        存储：ROM  硬盘
+      递归：刨根问底
+      # cat /proc/meminfo
+      · 硬盘：ROM
+    2.读硬盘第一个扇区的分区表信息
+      2048
+    3.grub2，开机引导到内核
+      Linux -> 内核
+      Windows内核 -> DOS
+    4.启动第一个进程systemd
+      systemd
+    5.启动fstab和服务
+      # cat /etc/fstab
+      # systemctl restart network
+      RHCE工程师证书：
+      ISCSI  将A的硬盘通过网络给B使用
+    6.四个配置：bashrc，.bashrc，profile，profile.d，rc.local(x权限)->登录界面
+      /etc/bashrc
+      /root/.bashrc
+      /etc/profile
+      /etc/profile.d/
+      /etc/rc.local（需要执行权限）
+      
+      
+      git——版本控制工具
+      林纳斯  Linux
+      SVN
+      
+      1.定时任务
+      2.开机自启
+      
+下午
+
+一、挂载
+
+  1.将硬件里的内容，通过目录去访问
+  2.挂载cd的步骤：
+    1）将光盘放入光驱
+    2）创建一个目录
+    3）将光驱挂载到目录访问
+
+二、硬盘分区
+
+  一块硬盘：分区 -> 格式化（文件系统） -> 挂载 
+  1.分区类型：主分区，扩展分区、逻辑分区
+  # fdisk
+  2.格式化：
+  CentOS7，RHEL7：xfs
+  CentOS6，RHEL6：ext4
+  # mkfs.*
+
+

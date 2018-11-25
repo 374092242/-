@@ -1,0 +1,8 @@
+1 . ssh运行程序出现 cannot connect to X server
+    --第一步： 
+    export DISPLAY=:0.0
+    --第二步： 
+    xhost +local:root 
+2.curl 字符浏览器
+3.ps -aux 查看后台运行
+4.kill 杀死程序
