@@ -1,0 +1,30 @@
+11月25日
+
+上午：Github
+来历：
+SVN：VisualSVN
+Visual Studio:99G
+Package   70G
+
+  软链接  <-->  快捷方式
+符号链接              文件
+硬链接：狡兔三窟，每一个都等价，兔子=数据
+
+Linux：
+git  林纳斯
+
+git使用步骤：
+1.创建仓库
+2.克隆到本地
+3.将需要的文件放到git目录下
+4.配置:
+# git config --global user.email 账号
+5. 同步
+# git pull
+6.如果目录下有新的文件
+# git add -A .
+7.提交更改
+# git commit
+输入备注
+8.上传
+# git push
