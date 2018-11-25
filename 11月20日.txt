@@ -1,0 +1,24 @@
+一.服务的概念
+    1.主要工作内容 : 搭建服务
+    2.服务:
+       1 ) 包 (rpm,yum)
+       2 ) 配置
+       3 ) 起服务
+    3.服务:
+    -ftp : 21
+    -ssh : 22
+    -Telnet : 23
+    -SMTP : 25
+    -DNS : 53
+    -DHCP/UDP : 67/68
+    -tftp : 69
+    -http : 80
+    -NTP : 123
+    -https : 443
+    
+二.HTTP服务
+    web服务器 : Apache  Tomcat  Nginx
+     1.装包
+     2.配置
+     3.起服务
+     4.将文件放入/var/www/html
