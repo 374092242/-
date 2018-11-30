@@ -1,0 +1,314 @@
+day05
+回顾
+
+vim
+
+
+模式：
+	a,i,o	
+命令模式=====》输入模式
+           Esc
+命令模式《=====输入模式
+         ：
+命令模式=====》末行模式
+:w    //write写入
+:q    //quit  退出
+:wq   //保存并退出
+:q!    //强制退出
+
++++++++++++++++++++++++
+在命令模式下进行
+
+光标行间跳转
+gg ：跳转到文件的行首
+G ：跳转到文件的末尾
+
+复制  yy/nyy  
+粘贴  p
+删除行  dd/ndd
+删除单个字符  x或Delete
+撤销  u 
+cp    /etc/passwd    mima
+
+查找
+/:即将查找
+n：下一个匹配
+N：上一个匹配
+
+:nohl   //取消高亮
+
+
+行内替换
+:s /old/new   替换当前行第一个“old”
+:s /old/new/g   替换当前行所有的“old”
+
+区域内替换
+:n,m  s/old/new/g 替换第n-m行所有的old
+:%s /old/new/g  替换文件内所有的“old”
+
+显示行号
+:set number
+
+取消行号
+:set nonumber
+
+===========================
+2、
+IP：用来标识一个节点的网络地址
+
+3、IP组成：
+点分十进制
+32个二进制位
+
+
+4、IP地址分类
+A类  1-126    255.0.0.0  网+主+主+主
+B类  128-191  255.255.0.0  网+网+主+主
+C类  192-223  255.255.255.0 网+网+网+主
+
+
+5、何为同一个网段？
+网络位相同---》同一个网段
+（网络ID相同）
+
+6、私有IP地址范围
+A类 10.0.0.1~10.255.255.254
+B类 172.16.0.1~172.31.255.254
+C类 192.168.0.1~192.168.255.254
+
+7、测试网络连通性
+ping
+
+8、127.0.0.1 本地回环地址
+
+++++++++++++++++++++++++++++++++++
+
+1、什么是计算机网络
+硬件方面：通过线缆将网络设备和计算机连接起来。
+软件方面：操作系统、应用软件，应用程序通过线路互联
+实现资源共享、信息传递。
+
+
+2、计算机网络的功能
+数据通信
+资源共享
+增加可靠性
+提高系统处理能力
+
+
+3、WAN与LAN
+广域网（Wide-Area Network）
+-范围：几十到几千千米
+-作用：用于连接远距离的计算机网络
+-典型应用：Internet
+局域网（Local-Area Network）
+-范围：1KM左右
+-作用：用于连接较短距离内的计算机
+-典型应用：企业网、校园网
+
+
+
+4、网络设备生产厂商
+网络设备生产厂商
+Cisco（思科）
+华为
+
+
+5、网络拓扑结构
+-点对点
+-总线型
+-环形
+-星型及扩展的星型
+-网状
+
+
+
+6、星型拓扑
+--优点
+易于实现
+易于网络扩展
+易于故障排查
+--缺点
+ 中心节点压力大
+ 组网成本较高
+
+
+
+7、网状拓扑结构
+-一个节点与其他多个节点相连
+-提供冗余性和容错性
+-可靠性高
+-组网成本高
+
+
+8、线缆
+有线介质
+--光纤：一种传输光能的波导介质。
+--双绞线：由许多绝缘的对线交叉组成的能够数据传输的线
+（使用广泛、价格便宜），相互缠绕，减少对临近线对的电气干扰。
+
+
+
+9、双绞线分类(按屏蔽层分类)
+  非屏蔽双绞线UTP
+  屏蔽双绞线STP
+
+
+10、线序
+T568A：白绿  绿  白橙  蓝  白蓝  橙  白棕  棕
+T568B：白橙  橙  白绿  蓝  白蓝  绿  白棕  棕
+1、3发送
+2、6接收
+
+
+11、
+直通线:A-A   B-B
+
+交叉线:A-B
+
+相同设备---交叉线
+不同设备---直通线
+
+
+路由器与PC：交叉线
+交换机与交换机：交叉线或直通线
+
+
+型号
+路由器：2621
+交换机：2960
+
+
+
+12、Cisco交换机的命令行
+用户模式
+Switch>
+特权模式（一般用于查看配置信息）
+Switch>enable
+Switch#
+全局配置模式（所做的配置对整个设备生效）
+Switch#configure  terminal
+Switch(config)# 
+Switch(config)# interface                    fastethernet    0/1
+Switch(config-if)#
+模式间的转换
+退到上一个模式：exit
+退到特权模式：end、<Ctrl+z>
+
+
+Switch>
+Switch>en  //进入
+Switch#conf  t
+Switch(config)# in  f0/1
+Switch(config-if)#
+模式间的转换
+退到上一个模式：exit
+退到特权模式：end、<Ctrl+z>
+
+Ctrl+Shift+“6”
+
+
+
+13、配置主机名
+Switch>en
+Switch#conf   t
+Switch(config)#hostname  tedu
+tedu(config)#
+-
+
+14、查看交换机的配置
+tedu# show  running-config
+tedu# show  run
+
+
+15、显示版本信息
+tedu# show   version
+
+
+
+16、配置enable明文口令
+tedu>en
+tedu#conf   t
+tedu(config)# enable  password  123
+tedu(config)# exit
+tedu# show   run
+
+	enable password 123
+
+tedu#exit
+tedu>enable
+Password: 【123】
+tedu#
+
+
+取消密码
+tedu(config)# no enable  password
+tedu(config)# no enable secret
+
+
+17、配置enable加密口令
+tedu>
+tedu#conf t
+tedu(config)#enable secret 456
+tedu(config)#exit
+tedu#show running-config 
+
+tedu#exit
+tedu>enable
+Password:  【456】
+tedu#
+
+
+
+
+
+18、配置Console口令
+tedu>en
+tedu#conf t
+tedu(config)#line console 0
+tedu(config-line)#password 789
+tedu(config-line)#login 
+tedu(config-line)#end
+tedu#show run
+tedu#exit
+
+
+19、旗标
+tedu>en
+tedu#conf t
+tedu(config)#banner motd #
+Enter TEXT message.  End with the character '#'.
+****warning****warning****#
+
+tedu(config)#end
+tedu#exit
+
+****warning****warning****
+
+User Access Verification
+
+Password: 【789】
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

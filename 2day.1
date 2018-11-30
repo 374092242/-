@@ -1,0 +1,88 @@
+虚拟机 : KVM虚拟机
+
+物理主机 : CPU / MEMORY / HDD / DVD - ROM
+
+安装RHEL7 系统
+
+1 . 在虚拟系统管理其中点击新建按钮
+
+2 . 选择"本地安装介质"
+
+3 . ISO镜像的位置 , "浏览" -> "本地浏览" -> "计算机" ->  选择rhel-server-7.4-×86_64-dvd.iso
+
+4 . 内存用2048M , CPU 选择一核 
+
+5 . 硬盘选择50G
+
+6 . 名称随意
+
+GUI  :  Graphical User Interface  图形用户界面
+
+CLI  :  Command Line Interface 命令行界面 
+
+RHEL7 命令行界面 : 
+1 . RHEL7 默认打开了6个终端 . 按ctrl  +  shift  +  (F1 , F2 ...F6) 切换
+
+2 . 在图形界面下还可以打开伪终端 : 桌面上右击 , 选择"打开终端"
+
+3 . 伪终端字体大小快捷键是Ctrl + " +/- "
+
+4 . 命令提示符的含义 : 
+[root@localhost ~ ]#
+
+[用户名@主机名 当前工作路径]用户提示符 ; 如果是root , 用户提示符是# , 如果是非root用户 , 用户提示符是$
+
+5 . 显示当前用户  
+[root@localhost ~ ]# whoami
+root
+
+6 . 显示主机名
+[root@localhost ~ ]# hostname
+
+7 . 说明 : 命令 , 选项 , 路径等在Linux下都区分大小写  .  命令 , 选项 , 参数之间必须有空格
+
+8 . 显示当前工作目录
+[root@localhost ~ ]# pwd
+
+9 . 切换用户
+[root@localhost ~ ]# su zrb
+
+10 . 列出文件或目录 : ls
+
+11 . 创建目录 : mkdir
+
+12 . 切换工作目录 : cd
+( 1 ) 只要输入cd就会进入只记得家目录 root的家目录是/root . 家目录就是该用户拥有绝对权限的目录 , 可以为所欲为 .  zrb的家目录是/home/zrb
+
+13 . 查看目录下的信息 : ls
+ls -l 因为非常常用所以有别名 , 叫 ll
+
+14 . 查看内核版本号 : uname -r
+
+15 . 操作系统版本号 : cat /etc/redhat-release
+
+16 . 查看CPU : lscpu
+
+17 . 查看内存信息 : cat /proc/meminfo
+
+18 . 查看网卡信息 : ifconfig
+lo -> loopback , 本地环回 , 127.0.0.1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

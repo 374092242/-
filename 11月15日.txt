@@ -28,10 +28,12 @@
          --以标签的形式开启终端,用alt + 数字切换
    14 ) ctrl + shift + n
          --以窗口的形式开启终端,用alt + tab切换
-   15 ) ctrl + shift + w
+   15 ) ctrl + shift + w/d
          --关闭正在使用的终端
    16 ) ctrl + shift + q
          --以窗口为单位关闭终端 
+   17 ) ctrl + r 
+         --检索敲过的命令
 2.查看系统信息
    1 ) /proc目录
        --用于存放临时文件

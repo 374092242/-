@@ -1,0 +1,345 @@
+day03
+回顾
+1、三大操作系统：
+Unix、Linux、Windows
+
+2、pwd:查看当前的工作目录
+
+3、Tab键：自动补全
+
+4、
+/:根目录
+/home :普通用户的家目录
+/root :超级管理员的家目录
+/dev:设备
+
+/dev/sdb2
+
+5、查看主机名
+# hostname 
+
+6、设置主机名
+# hostname  XXX //临时
+# hostnamectl  set-hostname XXX //永久
+
+7、[root@xiaohua ~] #
+[用户名@主机名 工作目录] #
+#代表当前登录的是超级管理员root
+
+[lisi@xiaohua ~] $
+$代表当前登录的是普通用户
+
+8、克隆虚拟机
+1）点点点
+2）clone-vm7
+# clone-vm7
+Enter VM number:1
+你的KVM会出现：rh7_node01
+
+
+localhost login: root
+PassWord:【123456】
+[root@localhost~]# init  5  进入图形模式
+
+点击“未列出”
+--->用户名：root  密码：123456
+
+9、创建用户
+# useradd  lisi
+
+10、切换用户
+# su  -  lisi
+
+11、查看用户是否存在
+# id  lisi
+
+12、SWAP：虚拟内存
+
+13、重启
+# reboot
+
+
++++++++++++++++++++++++++++++++++
+
+1、快捷键：
+
+Ctrl + Shift + "+":将终端字符变大
+Ctrl + ‘-’：将终端字符变小
+Ctrl +  l  或clear：清空整个屏幕
+Ctrl +  u  :  删除光标前面的内容
+Ctrl +  k  :  删除光标后面的内容
+Ctrl +  c  ：终止当前程序
+Ctrl +  w ：往回删除一个单词.(以空格定界）
+Ctrl + Shit +‘t’：打开多个终端
+Atl + “数字”：切换终端
+Ctrl + Shift + “w”：关闭终端
+Ctrl + Shift + “d”：关闭终端（保留有命令行的终端）
+
+2、添加快捷键
+# gnome-terminal
+# which  gnome-terminal
+/uer/bin/gnome-terminal
+
+复制粘贴/uer/bin/gnome-terminal
+点击关机按钮--->点击小扳手
+---> 键盘 --->出现的界面拉到最后
+---->你会看到一个小“+”，并点击它
+--->出现添加自定义快捷键的页面
+--->
+名称：终端
+命令：/uer/bin/gnome-terminal
+快捷键：Ctrl+“E”
+---->点击“添加”
+
++++++++++++++++++++++++++++
+3、查看历史命令
+# history
+
+4、清空历史命令
+# history  -c
+
+5、检索敲过的命令
+快捷键：ctrl + “r”
+
+
+6、ls— list
+用途：用来显示目录里面的内容
+格式：ls  [选项]   [目标文件位置]
+
+黑色：文件
+蓝色：目录
+红色：压缩文件
+绿色：可执行文件
+
+-l:长格式显示
+-h：以人类可以读取的方式显示
+-d：只显示目录本身
+-R：递归
+
+# ls /boot/ /etc/sysco【Tab】/network-s【Tab】
+# ls -l  /boot/
+# ls -lh  /boot/
+# ls -ld  /boot/
+
+7、man：在线帮助手册
+/:代表即将进行搜索
+/-h:搜索的内容为“-h”
+按“N”：向上匹配
+按“n”：向下匹配
+按“q”：退出
+
+# man man
+# man ls
+# man pwd 
+
+转换成英文
+# LANG=en_US 
+转换成中文
+# LANG=zh_CN.UTF-8
+
+
+
+
+8、cd — Change Directory
+用途：切换工作目录
+格式：cd  [目标文件夹位置]
+.  :当前
+.. :父目录（上一层）
+- :返回
+
+A直接包含B，A是B的父目录
+
+# cd /etc/sysconfig/network-scripts/
+# cd .   
+# pwd
+# cd ..
+# pwd
+# cd /boot
+# pwd
+# cd -
+
+
+绝对路径/相对路径
+
+
+绝对路径：这种方式以根目录“/”为起始。
+使用绝对路径可以非常准确地表示一个目标（或）文件
+所在的位置。但是如果较长，输入的时候会比较繁琐。
+
+相对路径：表示以当前工作目录为起点。
+在开头不使用“/”符号，使用时更加简短、便捷。
+
+
+
+9、创建目录
+mkdir  —— make directory
+格式： mkdir  [/路径/]目录名……
+#mkdir  /tedu 
+
+如果想递归创建目录，需要加参数-p
+# cd /tedu
+# mkdir  -p   a/b/c
+# ls -R a/
+# mkdir -p  f/{e,o}/t
+# ls -R f 
+# mkdir /root/a
+
+10、touch:创建空白文件或更改时间戳
+格式：touch  [/路径/]文件名……
+
+# mkdir /root/yaya
+# cd  /root/yaya
+# touch    a.txt
+# ls  -l  a.txt
+# cat  a.txt
+# touch  /root/yaya/{b,c}.txt
+# touch  a.txt
+# ls  -l  a.txt  b.txt  c.txt
+# ls  -l  {a,b,c}.txt
+# touch aa.txt  txt
+# ls  -l  *txt   
+
+*：匹配任意多个字符
+
+
+11、查看文件内容
+# cat /etc/passwd
+
+12、cp —— copy 复制
+格式：cp  [选项]...  原文件…  目标路径
+-r:递归
+
+# mkdir  yaya/{a,b,c}
+# mkdir  yaya/a/f
+# cd   yaya 
+# cp   /etc/passwd   a/mima
+# cp   /etc/passwd  .
+# cp   -r   a/   b/
+                 对比
+# cp -r  a/*     c/
+# ls   b/   c/
+
+==================================
+	   /
+	 root
+         yaya
+a    b    c    wenjian 
+
+yaya  cp   /etc/passwd   yaya/
+
+
+
+
+13、rm  删除
+格式：rm  [/路径/]文件名……
+r:递归
+f:强制
+
+# cd yaya
+# rm  mima
+# rm  -f  passwd
+# rm   -r   a
+# rm  -rf  b
+
+
+
+
+
+
+
+
+检查红帽发行信息
+[root@svr7 桌面]# cat  /etc/redhat-release 
+Red Hat Enterprise Linux Server release 7.2 (Maipo)
+
+列出内核版本
+[root@svr7 桌面]# uname  -r
+3.10.0-327.el7.x86_64
+
+
+
+
+
+
+
+
+
+认识vim编辑器
+1）
+vim编辑器工作模式（3）
+命令模式
+输入模式
+末行模式
+
+2）光标间的跳转
+光标行间跳转
+gg：跳转到文件的首行 
+G：跳转到文件的行末尾
+
+3）
+dd:删除
+2dd：删除两行
+u：撤销
+yy：复制
+2yy：复制两行
+p：粘贴
+
+4）保存退出
+:wq 或 :x  保存
+:q!  强制退出
+:w   写入
+
+5）字符串替换
+[root@wudan ~]#cp /etc/passwd /tmp/mima  
+（1）行内替换
+:s /old/new 替换当前行第一个“old”
+:s /old/new/g   替换当前行所有的“old”
+（2）区域内替换
+:n,m s/old/new/g   替换第n-m行所有的“old”
+:%s /old/new/g   替换文件内所有的“old”
+
+6）
+命令模式
+	:set number  ##显示行号
+	:set nonumber  ##不显示行号
+	:set tabstop=4  
+
+7）vimtutor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

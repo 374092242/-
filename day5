@@ -1,0 +1,152 @@
+vim 命令
+显示行号
+:set number
+取消行号
+:set nonumber
+
+IP地址 
+表示一个网络节点的网络地址
+点分十进制
+32个二进制位
+
+0  1~126
+10 128~191
+110 192~223
+1110 224~239
+11110 240~254
+
+网络位相同
+网络ID是否相同
+
+10.0.0.1~10.255.255.254
+172.16.0.1~172.31.255.254
+192.168.0.1~192.168.255.254
+
+ping 
+
+127.0.0.1本地回环地址
+
+
+什么是计算机网络
+计算机网络的功能
+数据通信
+资源共享
+增加可靠性
+提高系统处理能力
+
+
+WAN与LAN
+广域网(wide-aera Network)
+
+
+局域网(Local Area Network)
+
+网络拓扑图
+
+点对点
+
+总线型
+
+环形
+
+星型及拓展的星型
+优点:易于实现,易于网络扩展,易于故障排查
+缺点:中心节点压力大,组网成本高
+
+
+网状
+一个节点与其他多个节点相连
+提供冗余性和容错性
+可靠性高
+组网成本高
+
+
+线缆
+T568A :白绿 绿 白橙 蓝 白蓝 橙 白棕 棕 1 2 发送 3 6 接收
+T568B :白橙 橙 白绿 蓝 白蓝 绿 白棕 棕
+
+直通线 :A-A B-B 主要用B-B
+不同设备相连 
+
+交叉线 :A-B
+相同设备相连
+
+主机与路由器用交叉
+交换机之间直通交叉都可以
+
+
+交换机的命令模式
+配置前的连接
+Console电缆
+物理连接
+计算机COM口
+交换机路由器Console口
+软件连接
+
+
+Cisco交换机的命令行
+用户模式
+switch>
+特权模式(一般用于查看配置信息)
+switch>enable
+switch#
+全局配置模式(所做的配置对整个设备生效)
+switch#configure  terminal
+switch(config)#
+端口模式
+switch(config)# interface f0/1
+switch(config-if)#
+模式间的转换
+退回到上一个模式  exit
+退到特权模式: end <ctrl+z>
+强制终止 : <Ctrl+shift+^>
+配置主机名
+switch(config)#hostname pokemon
+pokemon#
+
+查看交换机配置
+pokemon# show running-config
+
+显示版本信息
+pokemon# show version
+
+配置enable明文口令
+pokemon>enable
+pokemon#configure t
+pokemon(config)#enable password 7852398521
+pokemon(config)#exit
+pokemon#show run
+
+pokemon#configure t
+pokemon(config)#no enable password
+
+配置加密口令
+pokemon>enable
+pokemon#configure t
+pokemon(config)#enable secret 7852398521
+pokemon(config)#exit
+pokemon#show run
+
+pokemon#configure t
+pokemon(config)#no enable secret
+
+
+配置Console口令
+pokemon>enable
+pokemon#configure t
+pokemon(config)#line console 0
+pokemon(config-line)#password 789
+pokemon(config-line)#login
+pokemon(config-line)#end
+pokemon#show run
+pokemon#exit
+
+
+旗标
+可以让每个登录你设备的人收到你设置的信息
+pokemon>enable
+pokemon#configure t
+pokemon(config)#banner motd #
+输入信息以#号结尾
+
+
