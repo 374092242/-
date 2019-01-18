@@ -1,0 +1,78 @@
+命令的历史记录：
+vim /etc/profile    //修改历史记录
+        找到    HISTSIZE=1000  修改为合适的值
+重新登陆帐号使用  history 检测修改结果
+使用history -c 可以清空历史记录缓存
+使用 > /root/.bash_history  可以清空历史记录
+
+alias   //查看别名
+alias ld='ls -ldh'   //临时设置别名
+vim /root/.bashrc    //永久设置别名
+unalias  ld			//取消别名
+
+重定向
+标准输出   1
+标准错误   2
+
+
+#!/bin/bash
+for i in {1..10}
+do
+	useradd user$i 2>> /opt/e.txt      //创建账户并收集错误信息
+	echo 123456 |passwd --stdin user$i > /dev/null   //修改密码并不显示相关信息
+done
+
+chmod u+x  /opt/user         //添加执行权限
+/opt/user       //执行脚本
+id user1   //查看用户创建结果
+cat /opt/e.txt      //查看错误信息
+
+1，给脚本增加x权限，使用绝对路径执行
+2，bash 脚本名称   // 再次开启一个进程
+3， . 脚本名称	 不开启新进程   
+4， source 脚本名称	 
+
+bash -x yumtest    //-x选项可以显示脚本中每条命令执行的细节，有助排错
+
+" "     界定范围
+'  '    界定范围，屏蔽特殊的含义
+` ` 或 $()    可以把通过命令得到的结果当作参数使用
+
+tar -czf log`date +%Y-%m-%d`.tar.gz /var/log   //按时间定义文件名
+
+
+
+
+
+
+
+
+$0   显示执行脚本的名称
+$1~$n  显示参数
+$#  位置变量的个数
+$*  所有位置变量
+$?  确认上一条命令执行结果
+$$  当前脚本的进程号
+
+变量种类：
+环境变量
+位置变量
+预定义变量
+自定义变量
+
+
+export   a=10     //定义全局变量，使子进程可以使用变量
+export -n a       //取消定义全局变量
+
+PS1  一级提示符    
+PS2  二级提示符
+
+
+
+
+
+
+
+
+
+

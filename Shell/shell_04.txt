@@ -1,0 +1,220 @@
+for i in {1..100} 或  `seq 100`
+do
+	 循环执行的指令
+done
+
+for i in `cat /opt/user.txt`
+do
+	 useradd $i
+done
+
+
+while :
+do
+	循环执行的指令1
+	循环执行的指令2
+done
+
+case 变量  in
+-e|e）
+	执行指令;;
+-c）
+	执行指令;;
+*)
+	执行指令
+esac
+
+函数名(){
+执行指令1
+执行指令2
+执行指令3
+.....
+}
+
+
+exit
+break   终止循环
+continue  跳出当前循环，继续下一次循环
+
+
+
+for i in {1..254}
+do
+	[ $i -eq 115 ]&&continue 
+	
+	ssh 172.25.0.$i  poweroff
+done
+
+115
+117
+223
+
+===============================
+节取子串
+a=abcdef
+方法一     第一个字符从0开始计算
+echo ${a:0:3}   //节取变量a中的第一个字符开始以及后续共三位
+方法二     第一个字符从1开始计算
+expr substr $a 1 3  //节取变量a中的第一个字符开始以及后续共三位
+方法三     第一个字符从1开始计算
+echo $a | cut -b 1-3  //节取变量a中的第一个字符到第三个
+
+
+随机节取一位字符
+#!/bin/bash
+a=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+    0123456789       // 62个字符在脚本中要连贯写，不能有换行或者空格
+x=$[RANDOM%62]   // 创建随机数  0～61
+echo ${a:x:1}    // 使用方法一节取
+
+获取8位随机字符
+#!/bin/bash
+a=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+    0123456789  
+for i in {1..8}
+do
+	x=$[RANDOM%62]
+	c=${a:x:1} 
+	y=$y$c
+done
+echo $y
+追加将随机的到的密码配给某用户，并保存成文件方便查看
+useradd $1     //根据需求创建某用户
+echo $y |passwd --stdin $1
+echo "$1的密码是$y" >> /opt/pa.txt   //将记录追加保存到文件中
+
+子串的替换
+echo ${a/替换目标/替换结果}  //只替换一个目标
+例：
+a="root:x:0:0:root:/root:/bin/bash"
+echo ${a/root/abc}
+abc:x:0:0:root:/root:/bin/bash
+echo ${a//替换目标/替换结果}  //替换所有目标
+例：
+a="root:x:0:0:root:/root:/bin/bash"
+echo ${a//root/abc}
+abc:x:0:0:abc:/abc:/bin/bash
+
+子串的删除
+echo $a    //准备变量内容
+root:x:0:0:root:/root:/bin/bash
+掐头
+echo ${a#*:}   //从左至右删除一个目标，：是目标，*代表之前所有
+x:0:0:root:/root:/bin/bash    //结果
+echo ${a#root}  //从左至右删除root字符串
+:x:0:0:root:/root:/bin/bash      //结果
+echo ${a##*:}   //从左至右删除所有目标
+/bin/bash     //结果
+去尾
+echo ${a%:*}    //从右至左删除一个目标
+root:x:0:0:root:/root    //结果
+echo ${a%%:*}    //从右至左删除所有目标
+root    //结果
+
+利用子串去尾创建批量修改扩展名的脚本
+#!/bin/bash
+for i in `ls *.doc`   //列出所有以doc结尾的文件，并依次放入循环
+do
+        n=${i%.*}     //将某个.doc的文件去尾，得到文件名n
+						例如1.doc，去尾后，得到1
+        mv $i $n.txt   //使用mv工具改名，将1.doc改为1.txt
+done
+
+赋予初值
+x=123
+${p:-123456}
+
+${p:}  截取
+${p/}  替换
+${p#}  掐头
+${p%}  去尾
+${p:-} 定义初值
+
+使用变量定义初值，避免修改密码失败
+#!/bin/bash
+read -p "请输入密码" p
+p=${p:-123456}   //定义变量p的初值，如果用户输入密码则不使用初值
+echo $p |passwd --stdin $1
+echo $p
+
+使用循环创建脚本，实现从1到p的求和，如果用入无数值输入，则p为1
+#!/bin/bash
+read -p "请输入一个数字" p
+p=${p:-1}  
+x=0
+for i in `seq $p`
+do
+	let x+=i    //x值最开始为0，每循环一次，x就加一次循环的数字
+				   比如第一循环是x+1,此时x=1，第二次循环，x+2，
+				此时x=3，以此类推
+done
+echo "1到$p的和是$x"
+
+
+expect预期交互工具
+yum -y install expect.x86_64   //安装expect工具
+
+使用预期交互工具实现程序的非交互使用。
+#!/bin/bash
+expect << EOF    //开启expect功能  EOF 开头
+
+spawn ssh -o StrictHostKeyChecking=no 172.25.0.11    //调用某交互工具
+expect "password:"  { send "redhat\r"}   //看到password：之后   输入redhat ，\r是回车
+expect "#"  { send "mkdir /opt/ABC\r"}   //看到#后 输入创建目录
+expect "#:"  { send "exit\r"}
+EOF     //结束expect功能  EOF结尾
+
+:： //注意符号的中英文版本
+expect最后一条指令不执行
+ssh -o StrictHostKeyChecking=no   //使用ssh选项，避免第一次远程连接其他主机时被询问yes|no（已经连接过可以到家目录删除相关文件后再次测试rm -rf .ssh/known_hosts）
+
+
+
+数组，可以在众多变量定义过程中简化脚本
+x=(11 22 33)      //定义数组
+echo ${x[2]}	  //查看变量x下标是2的值(第三个)
+echo ${x[@]}      //查看所有值
+x[2]=44			  //重新给下标是2的值定义内容
+
+
+
+正则表达式
+
+首先准备一个素材
+[root@desktop0 opt]# cat tt
+aaatheaa
+theeeaaayyyy
+rrrrthe
+aaa the nnn
+
+然后使用grep工具配合正则表达式过滤文本
+grep -n "^a" tt    //查找以a字符开头的行
+grep -n "y$" tt    //查找以y字符结尾的行
+grep -n "[at]" tt    //查找有字符a或者t的行
+grep -n "[^at]" tt    //显示除了字符a或者t的行
+grep -n "." tt    //显示任意单个字符
+grep -n ".*" tt   //任意单个字符出现任意次
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

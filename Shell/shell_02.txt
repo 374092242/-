@@ -1,0 +1,188 @@
+bash sh ksh csh
+bash 快捷键  别名  tab键   历史命令  管道  重定向
+
+环境声明
+注释脚本功能
+代码
+
+x权限，bash，.，source
+
+环境变量  HOME  PS1  SHELL PWD  USER  UID  PATH
+位置变量 $1 $2 .....
+预定义变量  $# $* $$  $?  $0
+自定义变量  用字母数字下划线  
+
+""  
+''
+
+xy   相同  "xy"
+x y   不同 "x y"
+'xy'   相同 "xy"
+'x y'  相同  "x y"
+'$xy'  不同   "$xy"
+
+``
+
+shell中的运算
+整数
+expr  +  -  *   /  %  乘法需要转义    \* 
+$[]      需要用echo $[a+b] 查看结果
+let  不显示结果   可以修改变量的值
+let  自增减    let x++   相当于 let x=x+1
+			let x--	  相当于 let x=x-1
+			let x+=10 相当于 let x=x+10
+小数
+交互式
+bc   scale=3  //确定小数长度
+scale=3  
+10.01*10.01
+10.0001*10.01
+10.0001+10.01
+非交互式
+echo "scale=3;10.0001+10.01" | bc
+
+
+条件测试
+方法一
+test  表达式   
+方法二
+[ 表达式 ]
+echo $?  检测结果
+
+[  ==  ]   
+[  !=   ]
+read -p "请输入密码"  p
+[ -z  $p  ]&&exit||
+echo $p |passwd --stdin root
+
+&&   前面指令执行成功才执行后续任务
+||      前面指令执行失败才执行后续任务
+；   前后任务无逻辑关系
+
+数字判断
+-eq  等于   
+-ne  不等于
+-lt  小于
+-le  小于等于
+-gt  大于
+-ge  大于等于
+
+-e
+-d
+-f
+-r
+-w
+-x
+
+if判断
+单分支
+if [  ];then
+    
+fi
+
+if [  ]
+then
+	
+fi
+双分支
+if [ ];then
+
+else
+	
+fi
+
+多分支
+if [ -z $p ];then
+	exit
+elif [];then
+elif [];tehn
+
+else
+fi
+
+read -p "   " p
+
+
+判断
+#!/bin/bash
+if [ ! -d /opt/abc ];then
+	mkdir /opt/abc
+fi
+
+#!/bin/bash
+ping -c 3 -i 0.2 -W 1 $1  &>/dev/null
+if [ $? -eq 0 ];then
+      echo "$1 通了"  >> /opt/ok.txt
+else 
+		echo "$1 不通" >> /opt/no.txt
+fi
+
+保存测试结果，通了主机记录保存在/opt/ok.txt
+ 			不通的主机记录保存在/opt/no.txt
+
+-c 定义ping的次数
+-i 定义ping的间隔时间，单位是秒
+-W 定义ping结果反馈时间，单位是秒
+
+#!/bin/bash
+n=`echo $[RANDOM%10]`
+if [ $n -eq $1 ];then
+	echo "猜对了"
+elif [ $1 -gt $n ];then
+	echo "猜大了"
+else
+	echo "猜小了"
+fi
+
+echo $[RANDOM]    //获取一个随机数
+使用if判断多分支猜一个随机数：
+#!/bin/bash
+n=`echo $[RANDOM%10]`
+read -p "请输入一个数字（0～9）：" p
+if [ $n -eq $p ];then
+        echo "猜对了"
+        exit
+elif [ $p -gt $n ];then
+        echo "猜大了"
+else
+        echo "猜小了"
+fi
+
+
+休息 17：25回
+
+
+
+
+
+
+
+
+
+休息  15：05
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

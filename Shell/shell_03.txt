@@ -1,0 +1,257 @@
+expr 1 % 1   echo $[RANDOM%10+1]  0~9    1~10
+let x=x+1   let x++
+let x+=2
+echo "1+1" | bc
+echo "scale=3;10/3" | bc
+
+字符     ==      ！=       -z
+数字    -eq  -ne  -ge  -gt   -le  -lt
+文件    -e -f -d -r -w -x
+逻辑与       &&
+逻辑或        ||
+
+
+单分支
+if [];then
+
+fi
+
+
+双分支
+if [];then
+
+else
+
+fi
+
+
+多分支
+if [];then
+
+elif [];then
+
+elif [];then
+
+else
+
+fi
+
+
+for 变量名  in  循环内容
+do
+		循环任务
+done
+情况一，只关心循环次数，不看变量
+for i  in  x y z
+do
+		echo nb
+done
+情况二，不仅关心循环次数，还使用变量
+for i  in  x y z
+do
+		echo ${i}nb
+done
+
+for i  in  {1..10}
+do
+		echo ${i}nb
+done
+
+for i  in  `seq 10`
+do
+		echo ${i}nb
+done
+
+for i  in  {1..254}
+do
+		if
+
+		fi
+done
+
+#!/bin/bash
+u=0
+d=0
+for i in {1..254}
+do
+ping -c3 -i0.2 -W1 172.25.0.$i  &> /dev/null
+if [ $? -eq 0 ];then
+        echo "172.25.0.$i is up"
+		let u++
+else
+        echo "172.25.0.$i is down"
+		let d++
+fi
+done
+echo ${u}台主机是up，${d}台主机是down
+
+
+ctrl+z   //将任务放置后台
+jobs     //查看后台任务
+kill -9 %1     //杀死1号任务
+
+for i in {1..10}
+do
+	useradd $i
+done
+
+使用文件作为循环列表创建不同用户
+#!/bin/bash
+for i in `cat /opt/user`
+do
+        useradd $i
+        echo 123456 |passwd --stdin $i
+done
+
+
+while循环，控制循环次数，避免死循环
+#!/bin/bash
+i=1
+while [ 10 -gt $i ]
+do
+        echo nb
+        let i++
+done
+
+
+#!/bin/bash
+n=$[RANDOM%100+1]
+i=0
+while :
+do
+let i++
+	read -p "请给个数字（1-100）" p
+        if [ $p -eq $n ];then
+		  echo "对了,猜了$i遍"
+		  exit
+		elif [ $p -gt $n ];then
+		  echo "大了"
+		else
+		  echo "小了"		
+		fi
+
+done
+
+
+case分支，功能类似if判断，可简化脚本，但功能不如if丰富
+
+case $1 in
+redhat)
+	echo "fedora";;
+fedora)
+	echo "redhat";;
+*)
+	echo "redhat|fedora"
+esac
+
+使用 | 简化脚本
+#!/bin/bash
+case $1 in
+-t|t)
+        touch $2;;
+-e|e)
+        vim $2;;
+-c)
+        cat $2;;
+*)
+        echo "$0 -t|-e|-c filename"
+esac
+     
+使用函数实现多组命令同时执行
+vim test09
+#!/bin/bash
+mycd(){
+mkdir $1
+cd $1
+}
+mycd abcde123
+
+bash test09    //开新的子进程，创建目录后进入目录，然后退出子进程，回到父进程所在目录
+. test09   //不开启新的进程，创建目录后进入目录
+
+
+创建函数，实现同时执行2条指令
+#!/bin/bash
+mycd(){
+mkdir $1
+touch $2
+}
+mycd abcde13 xyz123
+
+
+扩展的echo使用  \033[是固定格式， 34m是某颜色，结尾的0m是恢复默认颜色，ABCDEF是输出内容
+echo -e "\033[34mABCDEF\033[0m"
+
+将扩展echo写入函数，方便之后调用
+#!/bin/bash
+cecho(){
+echo -e "\033[$1m$2\033[0m"
+}
+cecho 32  ABCD
+cecho 33  ABCD
+cecho 34  ABCD
+cecho 35  ABCD
+cecho 36  ABCD
+
+
+
+#!/bin/bash
+cecho(){
+n=$[RANDOM%6+1]
+echo -e "\033[3${n}m$1\033[0m"
+}
+cecho ABCD
+cecho ABCD
+cecho ABCD
+cecho ABCD
+cecho ABCD
+
+
+exit  终止脚本
+continue  终止当前循环，进入下一次循环
+break  终止当前循环
+
+实现多个数字的求和  最后输入0是结束
+#！/bin/bash
+x=0
+while :
+do
+	read -p "请输入求和的数字(0是结束)" p
+	[ $p -eq 0 ]&&break     //当遇到用户输入0时终止循环
+	x=$[p+x]
+done
+echo $x       //此任务是循环外的，不受break影响
+
+
+在1到20里面找出6的倍数  并且求平方
+#!/bin/bash
+for i in `seq 20`
+do
+[ $[i%6] -ne 0 ]&&continue     //求变量i除6的余数，如果余数为0，说明当前数字是6的倍数
+
+echo $[i*i]
+done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
