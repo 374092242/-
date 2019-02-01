@@ -1,0 +1,88 @@
+sed  流式编辑器，可以对文本进行非交互式的增，删，改，  查，逐行处理
+选项  -n  屏蔽默认输出
+	-r  支持扩展正则
+	-i  写入文件
+指令  p 输出指定的行
+	d  删除
+	s  替换  s/源内容/将要替换的内容/
+	i  行前插入内容
+	a  行后追加内容
+	c  把行进行替换
+准备素材
+head -3 /etc/passwd  >  /opt/user
+使用sed处理文件
+sed -n 'p' /opt/user   //输出user文件中每一行内容
+sed -n '1p' /opt/user   //输出user文件中第1行内容
+sed -n '3p' /opt/user   //输出user文件中第3行内容
+sed -n '1,3p' /opt/user   //输出user文件中第1行至第3行内容
+sed -n '1,+1p' /opt/user   //输出user文件中第1行以及后续1行内容
+sed -n '/root/p' /opt/user   //在sed中使用正则过滤文本，文本素材可以自定义，或者使用系统的/etc/passwd
+
+\(root\)
+(root)  保留（复制）     \1   粘贴
+
+sed -r 's/^(.)(.*)(.)$/\3\2\1/' nssw.txt   //使用扩展正则保留需要复制的内容，再进行位置替换的粘贴
+    
+sed -r 's/([A-Z])/[\1]/' nssw.txt   //使用扩展正则寻找大写字母，并保留（复制），替换为之前复制的第一个内容并加[ ]
+
+^(.)(.)(.*)(.)$
+利用sed制作随机点名脚本
+所需元素（思路）：
+名单表   张三  李四  王五  赵六  孙七  周八  吴九
+cat 名单表 | wc -l
+RANDOM
+sed  p
+
+#!/bin/bash
+while :
+do
+clear            //清屏
+n=`cat /opt/user | wc -l`
+m=$[RANDOM%n+1]
+sed -n "${m}p" /opt/user    //使用sed输出随机行到屏幕
+sleep 0.05
+done
+
+使用sed编写自动配置vsftpd服务的脚本，要求开启匿名上传功能
+#!/bin/bash
+yum -y install vsftpd
+sed -i 's/^#anon_u/anon_u/' /etc/vsftpd/vsftpd.conf 
+chmod o+w /var/ftp/pub
+systemctl restart vsftpd
+systemctl enable vsftpd
+
+
+sed '1i XXX' a    //在第一行前插入文字XXX
+sed '1a XXX' a    //在第一行后追加文字XXX
+sed '1c XXX' a    //把第一行替换为文字XXX
+
+^  //每行前（头）
+$  //每行后（尾）
+
+sed '1s/$/EEE/' a      //将行尾添加EEE
+sed '1s/^/EEE/' a		//将行前（头）添加EEE
+
+sed中读入文件内容与保存成新文件
+echo 777 > 7.txt   //准备素材
+sed 'r 7.txt' a   //读取7.txt文件中内容追加到a文件所有行后
+sed '1r 7.txt' a   //读取7.txt文件中内容追加到a文件第一行后
+
+sed 'w 8.txt' a   //将a文件中所有行覆盖保存到8.txt文件中
+sed '1w 8.txt' a   //将a文件中第一行覆盖保存到8.txt文件中
+${a#}
+${a%}
+
+sed -e '1w 9.txt' -e '3w 9.txt' a   //同时保存a文件中第一行和第三行到9.txt中
+
+
+
+
+
+
+
+
+
+
+
+
+
